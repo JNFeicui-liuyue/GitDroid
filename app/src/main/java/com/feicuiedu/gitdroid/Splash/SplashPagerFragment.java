@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.feicuiedu.gitdroid.R;
+import com.feicuiedu.gitdroid.Splash.pager.Pager2;
 
 import butterknife.Bind;
 import butterknife.BindColor;
@@ -54,6 +55,7 @@ public class SplashPagerFragment extends Fragment {
         mViewPager.setAdapter(mAdapter);//填充数据
         //指示器作用在ViewPager上，跟着一起动
         mIndicator.setViewPager(mViewPager);
+
         //为ViewPager设置滑动时背景颜色改变的监听
         mViewPager.addOnPageChangeListener(mPageChangeListener);
         //由0滑动到1手机图片显示的监听
@@ -62,34 +64,41 @@ public class SplashPagerFragment extends Fragment {
 
     //此监听主要负责viewpager在scroll过程中,当前布局上layoutPhone布局的平移、缩放、渐变的处理
     private final ViewPager.OnPageChangeListener phoneViewHandle = new ViewPager.OnPageChangeListener() {
+        /**
+         *
+         * @param position 代表当前正在显示的第一个页面的索引，
+         *                如果positionOffset不等于０，那么第position+1个页面将被显示。
+         * @param positionOffset 代表position页面的偏移，取值范围是[0,1)。这是一个偏移百分比。
+         * @param positionOffsetPixels 和第二个意义差不多，只不过单位是像素，偏移的像素值。
+         */
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            //当ViewPager在第一个页面和第二个页面之间时，
-            // 执行手机图片的缩放，由不可见变为可见
-            if (position == 0){
-                //在移动过程中，实时scale
-                float scale = 0.3f + positionOffset * 0.7f;
-                layoutPhone.setScaleX(scale);
-                layoutPhone.setScaleY(scale);
-                //在移动过程中，pone实时的变化
-                ivPhoneFont.setAlpha(positionOffset);
-                //在移动过程中，有一个平移的动画
-                int scroll = (int) (positionOffset - 1) * 200;
-                layoutPhone.setTranslationX(scroll);
-                return;
-            }
-
-            /**
-             * 当ViewPager在第二个页面和第三个页面之间时（总是为1）
-             手机要和ViewPager一起平移
-             */
-            if (position == 1){
-                layoutPhone.setTranslationX(-positionOffsetPixels);
-                return;
-
-            }
+//            //当ViewPager在第一个页面和第二个页面之间时，
+//            // 执行手机图片的缩放，由不可见变为可见
+//            if (position == 0){
+//                //在移动过程中，实时scale
+//                float scale = 0.3f + positionOffset * 0.7f;
+//                layoutPhone.setScaleX(scale);
+//                layoutPhone.setScaleY(scale);
+//                //在移动过程中，pone实时的变化
+//                ivPhoneFont.setAlpha(positionOffset);
+//                //在移动过程中，有一个平移的动画
+//                int scroll = (int) (positionOffset - 1) * 200;
+//                layoutPhone.setTranslationX(scroll);
+//                return;
+//            }
+//
+//            /**
+//             * 当ViewPager在第二个页面和第三个页面之间时（总是为1）
+//             手机要和ViewPager一起平移
+//             */
+//            if (position == 1){
+//                layoutPhone.setTranslationX(-positionOffsetPixels);
+//                return;
+//
+//            }
         }
-
+//
         @Override
         public void onPageSelected(int position) {
 

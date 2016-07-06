@@ -1,11 +1,21 @@
 package com.feicuiedu.gitdroid.commons;
 
+/**
+ * The custom utility class for log. Centralize the control of log.
+ * In real project, you may consider use <a href="https://github.com/JakeWharton/timber">Timber</a>
+ * instead rather than reinventing the wheels.
+ *
+ * <p/>
+ *
+ * 自定义日志工具类，统一对日志输出做出控制。
+ * 在公司项目中，可以考虑使用Timber等开源日志工具，不用重复造轮子。
+ */
 @SuppressWarnings("unused")
 public final class LogUtils {
 
-    private static final String TAG = "treasure_hunter";
+    private static final String TAG = "gitdroid";
 
-    private static final String TAG_TRACE = "method_trace";
+    private static final String TAG_TRACE = "gitdroid";
 
     private static final class StackTraceDebug extends RuntimeException {
         final static private long serialVersionUID = 27058374L;

@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -14,8 +16,23 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Some common methods associated with {@link Activity}, such as
+ * {@link #startActivity(Class)} and {@link #showToast(CharSequence)}.
+ * I use this class as an alternative approach of BaseActivity,
+ * to reduce the extra complexity introduced by the super deep inheritance level.
+ * It is kind of like a non-standard delegate pattern.
+ *
+ * <p/>
+ * 此类包含与Activity相关的一些常用方法，例如startActivity和showToast。
+ * 我使用这个类做为BaseActivity的替代方案，以避免过深的继承树引入的复杂性。
+ * 有点类似于一种不太标准的委托模式。
+ */
+@SuppressWarnings("unused")
 public class ActivityUtils {
 
+    // 使用弱引用，避免不恰当地持有Activity或Fragment的引用。
+    // 持有Activity的引用会阻止Activity的内存回收，增大OOM的风险。
     private WeakReference<Activity> activityWeakReference;
     private WeakReference<Fragment> fragmentWeakReference;
 
@@ -29,8 +46,15 @@ public class ActivityUtils {
         fragmentWeakReference = new WeakReference<>(fragment);
     }
 
-    private @Nullable
-    Activity getActivity() {
+    /**
+     * Get the reference of the specific {@link Activity}, this method
+     * may return null, you should check the result when you invoke it.
+     *
+     * <p/>
+     * 通过弱引用获取Activity对象，此方法可能返回null，调用后需要做检查。
+     * @return reference of {@link Activity}
+     */
+    private @Nullable Activity getActivity() {
 
         if (activityWeakReference != null) return activityWeakReference.get();
         if (fragmentWeakReference != null) {
@@ -49,7 +73,7 @@ public class ActivityUtils {
         }
     }
 
-    @SuppressWarnings("SameParameterValue") public void showToast(int resId){
+    @SuppressWarnings("SameParameterValue") public void showToast(@StringRes int resId){
         Activity activity = getActivity();
         if (activity != null) {
             String msg = activity.getString(resId);
@@ -111,5 +135,14 @@ public class ActivityUtils {
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public void startBrowser(String url){
+        if (getActivity() == null) return;
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(url);
+        intent.setData(uri);
+        getActivity().startActivity(intent);
     }
 }

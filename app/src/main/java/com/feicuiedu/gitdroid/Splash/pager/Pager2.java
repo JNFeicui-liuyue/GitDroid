@@ -1,4 +1,4 @@
-package com.feicuiedu.gitdroid.Splash;
+package com.feicuiedu.gitdroid.Splash.pager;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -42,6 +42,7 @@ public class Pager2 extends FrameLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.content_pager_2,this,true);
         ButterKnife.bind(this);
 
+        //设置三张图片为不可见
         ivBubble1.setVisibility(View.GONE);
         ivBubble2.setVisibility(View.GONE);
         ivBubble3.setVisibility(View.GONE);

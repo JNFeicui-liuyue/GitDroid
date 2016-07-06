@@ -5,6 +5,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.feicuiedu.gitdroid.Splash.pager.Pager0;
+import com.feicuiedu.gitdroid.Splash.pager.Pager1;
+import com.feicuiedu.gitdroid.Splash.pager.Pager2;
+
 /**用来存放引导界面的三幅视图
  * Created by liuyue on 2016/6/28.
  */
@@ -37,7 +41,7 @@ public class SplashPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mViews[position];
         //加载视图
-        container.addView(mViews[position]);
+        container.addView(view);
         return view;
     }
 

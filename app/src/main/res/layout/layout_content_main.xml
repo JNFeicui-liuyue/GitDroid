@@ -12,6 +12,10 @@
         app:title="@string/label_main"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
+    <!--最热门-->
+    <!--我的收藏-->
+    <!--每日干货-->
+    <!--。。。-->
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
